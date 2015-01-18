@@ -10,10 +10,9 @@
 #import "TopViewController.h"
 #import "HUDViewController.h"
 
-@interface RootViewController () <TopDelegate, HUDDelegate>
+@interface RootViewController () <TopDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftTopConstraint;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightTopConstraint;
 
 
@@ -27,37 +26,54 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.topVC.delegate = self;
-    self.hudVC.delegate = self;
+    self.hudVC.delegate = self.topVC;
 }
 
 -(void)onTopRevealButtonTapped
 {
-    if (self.rightTopConstraint.constant == -16)
-    {
-        self.rightTopConstraint.constant = -80;
-        self.leftTopConstraint.constant = 64;
-    }
-    else
-    {
-        self.rightTopConstraint.constant = -16;
-        self.leftTopConstraint.constant = -16;
-    }
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:0
+                     animations:^{
+                         if (self.rightTopConstraint.constant == -16)
+                         {
+                             [self showMenuTab];
+                         }
+                         else
+                         {
+                             [self hideMenuTab];
+                         }
+                         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished)
+                {
+                }];
+
+}
+
+-(void)hideMenuTab
+{
+    self.rightTopConstraint.constant = -16;
+    self.leftTopConstraint.constant = -16;
+}
+
+-(void)showMenuTab
+{
+    self.rightTopConstraint.constant = -80;
+    self.leftTopConstraint.constant = 64;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UIViewController *anotherVC = [segue destinationViewController];
     if ([segue.identifier isEqualToString:@"TopSegue"])
     {
-        UINavigationController *navVC = (UINavigationController *)anotherVC;
-        TopViewController *top = [navVC.viewControllers objectAtIndex:0];
-        top.delegate = self;
+        UINavigationController *navVC = segue.destinationViewController; //transfor anotherVC in UINavVC
+        self.topVC = [navVC.viewControllers objectAtIndex:0]; //
     }
-    else
+    else if ([segue.identifier isEqualToString:@"HUDSegue"])
     {
-        HUDViewController *hudVC = (HUDViewController *)anotherVC;
-        hudVC.delegate = self;
+        self.hudVC = segue.destinationViewController;
     }
 }
 

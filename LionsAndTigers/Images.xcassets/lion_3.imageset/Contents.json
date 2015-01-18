@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "avatars-lion-834130.png"
+      "filename" : "lion_3.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "lion_3@2x.png"
     },
     {
       "idiom" : "universal",

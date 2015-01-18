@@ -16,6 +16,7 @@
 
 @interface TopViewController : UIViewController
 
+
 @property (nonatomic, weak) id <TopDelegate> delegate;
 
 @end

@@ -18,15 +18,15 @@
 {
     [super viewDidLoad];
 }
+
 - (IBAction)lionsButtonTapped:(UIButton *)sender
 {
+    [self.delegate displayLionsImages];
 }
 
 - (IBAction)tigersButtonTapped:(UIButton *)sender
 {
+    [self.delegate displayTigersImages];
 }
-
-
-
 
 @end

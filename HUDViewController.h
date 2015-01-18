@@ -10,12 +10,13 @@
 
 @protocol HUDDelegate <NSObject>
 
+-(void)displayLionsImages;
+
+-(void)displayTigersImages;
 
 @end
 
 @interface HUDViewController : UIViewController
-
-- (IBAction)lionsButtonTapped:(UIButton *)sender;
 
 - (IBAction)tigersButtonTapped:(UIButton *)sender;
 
